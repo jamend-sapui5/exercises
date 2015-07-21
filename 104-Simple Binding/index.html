@@ -1,0 +1,44 @@
+<!DOCTYPE html>  
+<html><head>  
+	<meta http-equiv='X-UA-Compatible' content='IE=edge' />  
+	<title>Simple Binding</title>  
+
+	<script id='sap-ui-bootstrap' 
+		src='https://openui5.hana.ondemand.com/resources/sap-ui-core.js'  
+		data-sap-ui-theme='sap_bluecrystal'  
+		data-sap-ui-libs='sap.m'>
+	</script>   
+
+<script>
+	// Creates the App (contains NavContainer to manage Views/Pages)
+	var oApp = new sap.m.App('myApp');
+	
+	var oPage1 = new sap.m.Page('page1', {
+		title: 'My Page 01',
+		content: [ new sap.m.Button('button1', { text:'Testing binding' }), 
+				   new sap.m.Button('button2', { text:'Testing binding' }) ]
+	});
+	
+	var oButton1 = sap.ui.getCore().byId('button1');
+	var oButton2 = sap.ui.getCore().byId('button2');
+	
+	$.getJSON( 'data.json', function( data ) {
+		oButton1.setText(data.button_cfg.text);
+		/*var items = [];
+		$.each( data, function( key, val ) {
+			items.push( "<li id='" + key + "'>" + val + "</li>" );
+		});*/
+	});
+	
+	oButton2.setModel(new sap.ui.model.json.JSONModel('data.json'));
+	//oButton2.bindElement('/button_cfg');
+	oButton2.bindProperty('text', '/button_cfg/text');
+	
+	
+	oApp.addPage(oPage1);
+	oApp.placeAt('content');
+</script>
+
+</head>
+<body class='sapUiBody' id='content'></body>
+</html>

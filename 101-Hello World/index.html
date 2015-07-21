@@ -6,21 +6,20 @@
 	<script id='sap-ui-bootstrap' 
 		src='https://openui5.hana.ondemand.com/resources/sap-ui-core.js'  
 		data-sap-ui-theme='sap_bluecrystal'  
-		data-sap-ui-libs='sap.m'></script>   
+		data-sap-ui-libs='sap.m'>
+	</script>   
 
 <script>  
 	var oButton = new sap.m.Button({
 		text:'Press me!',
 		press: function() {
-			alert("Hello!");
-			console.log("Hello!");
+			alert('Hello!');
+			jQuery.sap.log.info('Hello!');
 		}
 	});
 	oButton.placeAt('content');  
 </script>
 
 </head>
-<body class='sapUiBody'>
-	<div id='content'></div>
-</body>
+<body class='sapUiBody' id='content'></body>
 </html>

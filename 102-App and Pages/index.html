@@ -1,0 +1,51 @@
+<!DOCTYPE html>  
+<html><head>  
+	<meta http-equiv='X-UA-Compatible' content='IE=edge' />  
+	<title>App and Pages</title>  
+
+	<script id='sap-ui-bootstrap' 
+		src='https://openui5.hana.ondemand.com/resources/sap-ui-core.js'  
+		data-sap-ui-theme='sap_bluecrystal'  
+		data-sap-ui-libs='sap.m'>
+	</script>   
+
+<script>
+
+	//JS: Adding content after constructor
+	/*var oPage = new sap.m.Page('page1',{
+		title: 'My Page'
+	});
+	
+	var oButton = new sap.m.Button({
+		text:'Press me!',
+		press: function() {
+			alert('Hello!');
+		}
+	});
+	
+	oPage.addContent(oButton);*/
+	
+	
+	
+	//JS: Adding content using constructor
+	var oPage = new sap.m.Page('page1', {
+		title: 'My Page',
+		content: new sap.m.Button({ 
+			text:'Press me!',
+			press: function() {
+				alert('Hello!');
+			}
+		})
+	});
+	
+	
+	
+	// Creates the App (contains NavContainer to manage Views/Pages)
+	var oApp = new sap.m.App('myApp');
+	oApp.addPage(oPage);
+	oApp.placeAt('content');
+</script>
+
+</head>
+<body class='sapUiBody' id='content'></body>
+</html>

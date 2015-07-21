@@ -1,0 +1,46 @@
+<!DOCTYPE html>  
+<html><head>  
+	<meta http-equiv='X-UA-Compatible' content='IE=edge' />  
+	<title>App Navigation</title>  
+
+	<script id='sap-ui-bootstrap' 
+		src='https://openui5.hana.ondemand.com/resources/sap-ui-core.js'  
+		data-sap-ui-theme='sap_bluecrystal'  
+		data-sap-ui-libs='sap.m'>
+	</script>   
+
+<script>
+	// Creates the App (contains NavContainer to manage Views/Pages)
+	var oApp = new sap.m.App('myApp');
+	
+	var oPage1 = new sap.m.Page('page1', {
+		title: 'My Page 01',
+		content: new sap.m.Button({ 
+			text:'Go to page 02',
+			press: function() {
+				oApp.to('page2');
+			}
+		})
+	});
+	
+	var oPage2 = new sap.m.Page('page2', {
+		title: 'My Page 02',
+		content: new sap.m.Button({ 
+			text:'Go to page 01',
+			press: function() {
+				oApp.back();
+				//oApp.to('page1'); //Alternative
+			}
+		})
+	});
+	
+	
+	
+	oApp.addPage(oPage1).addPage(oPage2);
+	oApp.setDefaultTransitionName('flip'); // slide(default), fade, flip, show
+	oApp.placeAt('content');
+</script>
+
+</head>
+<body class='sapUiBody' id='content'></body>
+</html>
