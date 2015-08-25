@@ -1,0 +1,12 @@
+<core:View xmlns:core="sap.ui.core" xmlns="sap.m" controllerName="yjamend_sflight.view.Detail">
+	<Page title="Page 02">
+		<content>
+			<ObjectHeader title="{Carrid}" number="{Price}" numberUnit="{Currency}">
+				<attributes>
+					<ObjectAttribute text="{Connid}" />
+					<ObjectAttribute text="{Fldate}" />
+				</attributes>
+			</ObjectHeader>
+		</content>
+	</Page>
+</core:View>

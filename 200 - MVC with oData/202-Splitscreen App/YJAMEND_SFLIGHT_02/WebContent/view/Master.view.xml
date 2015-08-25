@@ -1,0 +1,20 @@
+<core:View xmlns:core="sap.ui.core" xmlns="sap.m" controllerName="yjamend_sflight_02.view.Master">
+	<Page title="Flights List">
+		<content>
+			<List id="list" title="Flights" items="{/SflightSet}">
+				<items>
+					<ObjectListItem type="Navigation"
+									title="{Carrid}"
+									number="{Price}"
+									numberUnit="{Currency}"
+									press="handleSelectedItem">
+						<attributes>
+							<ObjectAttribute text="{Connid}" />
+							<ObjectAttribute text="{Fldate}" />
+						</attributes>
+					</ObjectListItem>
+				</items>
+			</List>
+		</content>
+	</Page>
+</core:View>

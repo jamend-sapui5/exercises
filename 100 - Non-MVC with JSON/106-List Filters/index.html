@@ -1,0 +1,57 @@
+<!DOCTYPE html>  
+<html><head>  
+	<meta http-equiv='X-UA-Compatible' content='IE=edge' />  
+	<title>List Filters</title>  
+
+	<script id='sap-ui-bootstrap' 
+		src='https://openui5.hana.ondemand.com/1.28.15/resources/sap-ui-core.js'  
+		data-sap-ui-theme='sap_bluecrystal'  
+		data-sap-ui-libs='sap.m'>
+	</script>
+
+<script>
+	// Creates the App (contains NavContainer to manage Views/Pages)
+	var oApp = new sap.m.App('myApp');
+	var oModel = new sap.ui.model.json.JSONModel();
+	oModel.loadData('data.json');
+	
+	var oPage1 = new sap.m.Page('page1', {
+		title: 'My Page 01',
+		content: [
+				   new sap.m.List('list', { headerText:'Markers' }), 
+				   new sap.m.Button('button', { 
+				   	   text:'Bind List with JSON',
+				   	   press: function(){
+				   		 // Create the type of object the list will display
+				   		 var oMarker = new sap.m.ObjectListItem({
+							type:  "Active",
+							title: "{homeTeam}",
+							attributes: [
+							             	new sap.m.ObjectAttribute({ id: "ATTR1", text: "{awayTeam}" }),
+							             	new sap.m.ObjectAttribute({ id: "ATTR2", text: "{fixture}" })
+							            ]
+						 });
+						 
+						 // Bind List
+						 var oList = sap.ui.getCore().byId('list');
+						 oList.setModel(oModel);
+						 oList.bindItems({
+							path: "/markers",
+							template: oMarker,
+							filters: new sap.ui.model.Filter('homeTeam', sap.ui.model.FilterOperator.Contains, 'pple'), // Field to filter, Operator, Value
+							sorter : new sap.ui.model.Sorter('homeTeam', false, true) // Field to be sorted, Descending, Group by that field
+						 });
+				   	   }
+				   })
+				   
+				 ]
+	});
+	
+	
+	oApp.addPage(oPage1);
+	oApp.placeAt('content');
+</script>
+
+</head>
+<body class='sapUiBody' id='content'></body>
+</html>

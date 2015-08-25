@@ -1,0 +1,73 @@
+<!DOCTYPE html>  
+<html><head>  
+	<meta http-equiv='X-UA-Compatible' content='IE=edge' />  
+	<title>Bind and Navigate</title>  
+
+	<script id='sap-ui-bootstrap' 
+		src='https://openui5.hana.ondemand.com/1.28.15/resources/sap-ui-core.js'  
+		data-sap-ui-theme='sap_bluecrystal'  
+		data-sap-ui-libs='sap.m'>
+	</script>   
+
+<script>
+	// Creates the App (contains NavContainer to manage Views/Pages)
+	var oApp = new sap.m.App('myApp');
+	var oModel = new sap.ui.model.json.JSONModel();
+	oModel.loadData('data.json');
+	
+	sap.ui.getCore().setModel(oModel);
+	
+	var selectedItem;
+	
+	var oPage1 = new sap.m.Page('page1', {
+		title: 'My Page 01',
+		content: [ new sap.m.List('list', { headerText:'Markers' }) ]
+	});
+	
+	// Create the type of object the list will display
+   	var oMarker = new sap.m.ObjectListItem({
+		type:  "Navigation",
+		title: "{homeTeam}",
+		attributes: [
+		             	new sap.m.ObjectAttribute({ text: "{awayTeam}" }),
+		             	new sap.m.ObjectAttribute({ text: "{fixture}" })
+		            ],
+		press: function(oEvent){
+			var selectedItem = oEvent.getSource().getBindingContextPath().substr(1);
+			sap.ui.getCore().byId('page2').setBindingContext(new sap.ui.model.Context(oModel, '/' + selectedItem + '/'));
+			oApp.to('page2', 'flip');
+		}
+	});
+	 
+	// Bind List
+	var oList = sap.ui.getCore().byId('list');
+	oList.setModel(oModel);
+	oList.bindItems({
+		path: "/markers",
+		template: oMarker
+	});
+	
+	var oPage2 = new sap.m.Page('page2', {
+		title: 'My Page 02',
+		showNavButton: true,
+		navButtonPress: function() {
+							oApp.back();
+						},
+		content: [
+			new sap.m.ObjectHeader({
+				title: "{homeTeam}",
+				attributes: [
+	             	new sap.m.ObjectAttribute({ text: "{awayTeam}" }),
+	             	new sap.m.ObjectAttribute({ text: "{fixture}" })
+	            ]
+			})
+		]
+	});
+	
+	oApp.addPage(oPage1).addPage(oPage2);
+	oApp.placeAt('content');
+</script>
+
+</head>
+<body class='sapUiBody' id='content'></body>
+</html>
